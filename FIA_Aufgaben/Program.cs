@@ -6,7 +6,6 @@ namespace FIA_Aufgaben
     {
 
         static List<Spieler> spielerListe = new List<Spieler>();
-        static ArrayList spielerListeArrayList = new ArrayList();
 
         static void Main(string[] args)
         {
@@ -42,14 +41,15 @@ namespace FIA_Aufgaben
 
             Spieler spieler3 = new Spieler("Gdfd", "Ewes", "TTT", new DateTime(1992, 08, 12), 21);
 
-            Console.WriteLine(spieler1);
-            Console.WriteLine();
-            Console.WriteLine(spieler2);
-            Console.WriteLine();
-            Console.WriteLine(spieler3);
+            //Console.WriteLine(spieler1);
+            //Console.WriteLine();
+            //Console.WriteLine(spieler2);
+            //Console.WriteLine();
+            //Console.WriteLine(spieler3);
 
-            //spielerListe.Add(spieler1);
-            spielerListe.Add(spieler1, spieler2, spieler3);
+            spielerListe.Add(spieler1);
+            spielerListe.Add(spieler2);
+            spielerListe.Add(spieler3);
 
 
             foreach (Spieler spieler in spielerListe)
