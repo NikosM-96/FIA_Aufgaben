@@ -1,9 +1,12 @@
-﻿namespace FIA_Aufgaben
+﻿using System.Collections;
+
+namespace FIA_Aufgaben
 {
     internal class Program
     {
 
         static List<Spieler> spielerListe = new List<Spieler>();
+        static ArrayList spielerListeArrayList = new ArrayList();
 
         static void Main(string[] args)
         {
@@ -29,7 +32,6 @@
             spieler1.Verein = "BVB";
             spieler1.Geburtstag = new DateTime(1989, 05, 31);
             spieler1.Nummer = 15;
-
             
             Spieler spieler2 = new Spieler();
             spieler2.Vorname = "Dsds";
@@ -47,13 +49,15 @@
             Console.WriteLine(spieler3);
 
             //spielerListe.Add(spieler1);
+            spielerListe.Add(spieler1, spieler2, spieler3);
 
-            //foreach (Spieler spieler in spielerListe)
-            //{
-            //    Console.WriteLine();
-            //    Console.WriteLine($"Index: {spielerListe.IndexOf(spieler)}");
-            //    Console.WriteLine(spieler.ToString());
-            //}
+
+            foreach (Spieler spieler in spielerListe)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Index: {spielerListe.IndexOf(spieler)}");
+                Console.WriteLine(spieler.ToString());
+            }
 
             Console.ReadLine();
 
@@ -95,7 +99,7 @@
                 result += $"\nVerein: {Verein}";
                 result += $"\nGeburtstag: {Geburtstag}";
                 result += $"\nNummer: {Nummer}";
-                result += $"\nAlter: {Alter}";
+                result += $"\nAlter: {GetAlter()}";
 
 
                 return result;
