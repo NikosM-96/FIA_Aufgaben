@@ -1,56 +1,86 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Xml.Serialization;
+using static FIA_Aufgaben.Program;
 
 namespace FIA_Aufgaben
 {
     internal class Program
     {
 
-        static List<Spieler> spielerListe = new List<Spieler>();
+        static XmlSerializer xml = new XmlSerializer(typeof(List<Spieler>));
+
+        static List<Spieler> spielerListe;
+
+
 
         static void Main(string[] args)
         {
             Console.WriteLine("ConsoleFussball");
             Console.WriteLine();
 
-            Console.WriteLine("1: Liste initialisieren");
-            Console.WriteLine("2: Spieler anzeigen");
-            Console.WriteLine("3: Spieler hinzufügen");
-            Console.WriteLine("4: Spieler ändern");
-            Console.WriteLine("5: Liste löschen");
-            Console.WriteLine("exit: Beenden");
+            while (true)
+            {
+                Console.WriteLine(Menu());
+
+                Console.WriteLine();
+
+                Console.Write("Ihre Wahl: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        SpielerListeInitialisieren();
+                        break;
+                    case "2":
+                        SpielerAnzeigen();
+                        break;
+                    case "3":
+                        AddPlayer();
+                        break;
+                    case "4":
+                        ModifySpieler();
+                        break;
+                    case "5":
+                        RemoveSpielerListe();
+                        break;
+                    case "6":
+                        SpielerSpeichern();
+                        break;
+                    case "7":
+                        SpielerEinlesen();
+                        break;
+                    case "exit":
+                        System.Environment.Exit(0);
+                        break;
+                    default:
+                        break;
+
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        static void SpielerAnzeigen()
+        {
+
+            if (spielerListe == null)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Keine Liste");
+                return;
+            }
+
+            if (spielerListe.Count == 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Keine Spieler");
+                return;
+            }
 
             Console.WriteLine();
-
-            Console.Write("Ihre Wahl: ");
-            //string choice = Console.ReadLine();
-
-            Spieler spieler1 = new Spieler();
-
-            spieler1.Vorname = "Mats";
-            spieler1.Name = "Hummels";
-            spieler1.Verein = "BVB";
-            spieler1.Geburtstag = new DateTime(1989, 05, 31);
-            spieler1.Nummer = 15;
-            
-            Spieler spieler2 = new Spieler();
-            spieler2.Vorname = "Dsds";
-            spieler2.Name = "Dsds";
-            spieler2.Verein = "RRR";
-            spieler2.Geburtstag = Convert.ToDateTime("05.02.1992");
-            spieler2.Nummer = 17;
-
-            Spieler spieler3 = new Spieler("Gdfd", "Ewes", "TTT", new DateTime(1992, 08, 12), 21);
-
-            //Console.WriteLine(spieler1);
-            //Console.WriteLine();
-            //Console.WriteLine(spieler2);
-            //Console.WriteLine();
-            //Console.WriteLine(spieler3);
-
-            spielerListe.Add(spieler1);
-            spielerListe.Add(spieler2);
-            spielerListe.Add(spieler3);
-
+            Console.WriteLine($"Spieler anzeigen... {spielerListe.Count}");
 
             foreach (Spieler spieler in spielerListe)
             {
@@ -58,66 +88,237 @@ namespace FIA_Aufgaben
                 Console.WriteLine($"Index: {spielerListe.IndexOf(spieler)}");
                 Console.WriteLine(spieler.ToString());
             }
-
-            Console.ReadLine();
-
         }
 
-        public class Spieler
+        static void AddPlayer()
         {
-            public string Vorname;
-            public string Name;
-            public string Verein;
-            public DateTime Geburtstag;
-            public int Nummer;
-            public int Alter;
 
-            public int GetAlter()
+            if (spielerListe == null)
             {
-                int nAlter = 0;
-
-                DateTime dtNow = DateTime.Now;
-                DateTime dtGeb = Convert.ToDateTime(Geburtstag);
-
-                nAlter = dtNow.Year - dtGeb.Year;
-
-                if ((dtGeb.Month > dtNow.Month) || ((dtGeb.Month == dtNow.Month) && (dtGeb.Day > dtNow.Day)))
-                {
-                    nAlter -= 1;
-                }
-
-
-                return nAlter;
+                Console.WriteLine();
+                Console.WriteLine("Keine Liste");
+                return;
             }
 
-            public override string ToString()
+            string vorname;
+            string name;
+            string verein;
+            string geburtstag;
+            string nummer;
+
+            Console.Write("Vorname: ");
+            vorname = Console.ReadLine();
+
+            Console.Write("Name: ");
+            name = Console.ReadLine();
+
+            Console.Write("Verein: ");
+            verein = Console.ReadLine();
+
+            Console.Write("Geburtstag: ");
+            geburtstag = Console.ReadLine();
+
+            Console.Write("Nummer: ");
+            nummer = Console.ReadLine();
+
+            DateTime dateTime;
+
+            try
             {
-                string result = "";
-
-                result += $"Vorname: {Vorname}";
-                result += $"\nName: {Name}";
-                result += $"\nVerein: {Verein}";
-                result += $"\nGeburtstag: {Geburtstag}";
-                result += $"\nNummer: {Nummer}";
-                result += $"\nAlter: {GetAlter()}";
-
-
-                return result;
+                dateTime = Convert.ToDateTime(geburtstag);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine(ex.Message);
+                return;
             }
 
-            public Spieler(string vorname, string name, string verein, DateTime geburtstag, int nummer)
-            {
-                Vorname = vorname;
-                Name = name;
-                Verein = verein;
-                Geburtstag = geburtstag;
-                Nummer = nummer;
-                Alter = GetAlter();
-            }
 
-            public Spieler() { }
+
+            Spieler spieler = new Spieler(vorname, name, verein, dateTime, Convert.ToInt32(nummer));
+
+            spielerListe.Add(spieler);
         }
 
+        static void SpielerListeInitialisieren()
+        {
+            spielerListe = new List<Spieler>();
+
+            Console.WriteLine();
+            Console.WriteLine("SpielerListe initialisieren...");
+        }
+
+        static void RemoveSpielerListe()
+        {
+
+            if (spielerListe == null)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Keine Liste");
+                return;
+            }
+
+            spielerListe.Clear();
+
+            Console.WriteLine();
+            Console.WriteLine("Done");
+            Console.WriteLine();
+        }
+
+        static void ModifySpieler()
+        {
+
+            if (spielerListe == null)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Keine Liste");
+                return;
+            }
+
+            if (spielerListe.Count == 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Keine Spieler");
+                return;
+            }
+
+            int index;
+            Console.Write("Index: ");
+            try
+            {
+                index = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine(ex.Message);
+                return;
+            }
+
+
+            Console.Write("Vorname: ");
+            string vorname = Console.ReadLine();
+            spielerListe[index].Vorname = string.IsNullOrEmpty(vorname) ? spielerListe[index].Vorname : vorname;
+
+            Console.Write("Name: ");
+            string name = Console.ReadLine();
+            spielerListe[index].Name = string.IsNullOrEmpty(name) ? spielerListe[index].Name : name;
+
+            Console.Write("Verein: ");
+            string verein = Console.ReadLine();
+            spielerListe[index].Verein = string.IsNullOrEmpty(verein) ? spielerListe[index].Verein : verein;
+
+            Console.Write("Geburtstag: ");
+            string geburtstag = Console.ReadLine();
+            spielerListe[index].Geburtstag = string.IsNullOrEmpty(geburtstag)
+                ? spielerListe[index].Geburtstag
+                : Convert.ToDateTime(geburtstag);
+
+            Console.Write("Nummer: ");
+            string strNummer = Console.ReadLine();
+            spielerListe[index].Nummer = string.IsNullOrEmpty(strNummer)
+                ? spielerListe[index].Nummer
+                : Convert.ToInt32(strNummer);
+
+        }
+
+        static string StringEinlesen(string strText)
+        {
+            return Console.ReadLine();
+        }
+
+        static string Menu()
+        {
+
+            string menu = "1: Liste initialisieren" +
+                "\n2: Spieler anzeigen" +
+                "\n3: Spieler hinzufügen" +
+                "\n4: Spieler ändern" +
+                "\n5: Liste löschen" +
+                "\n6: SpielerSpeichern" +
+                "\n7: SpielerEinlesen" +
+                "\nexit: Beenden";
+
+            return menu;
+        }
+
+        static void SpielerSpeichern()
+        {
+            Console.WriteLine("SpielerSpeichern: ");
+            StreamWriter streamW = new StreamWriter("Spieler.xml");
+            xml.Serialize(streamW, spielerListe);
+            streamW.Close();
+            Console.WriteLine("Anzahl Spieler gespeichert: " + spielerListe.Count);
+        }
+
+        static void SpielerEinlesen()
+        {
+            Console.WriteLine("SpielerEinlesen: ");
+            StreamReader streamR = new StreamReader("Spieler.xml");
+            spielerListe = (List<Spieler>)xml.Deserialize(streamR);
+            streamR.Close();
+            Console.WriteLine("Anzahl Spieler eingelesen: " + spielerListe.Count);
+        }
 
     }
+
+    [Serializable]
+    public class Spieler
+    {
+        public string Vorname;
+        public string Name;
+        public string Verein;
+        public DateTime Geburtstag;
+        public int Nummer;
+        public int Alter;
+
+        public int GetAlter()
+        {
+            int nAlter = 0;
+
+            DateTime dtNow = DateTime.Now;
+            DateTime dtGeb = Convert.ToDateTime(Geburtstag);
+
+            nAlter = dtNow.Year - dtGeb.Year;
+
+            if ((dtGeb.Month > dtNow.Month) || ((dtGeb.Month == dtNow.Month) && (dtGeb.Day > dtNow.Day)))
+            {
+                nAlter -= 1;
+            }
+
+
+            return nAlter;
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+
+            result += $"Vorname: {Vorname}";
+            result += $"\nName: {Name}";
+            result += $"\nVerein: {Verein}";
+            result += $"\nGeburtstag: {Geburtstag}";
+            result += $"\nNummer: {Nummer}";
+            result += $"\nAlter: {GetAlter()}";
+
+
+            return result;
+        }
+
+        public Spieler(string vorname, string name, string verein, DateTime geburtstag, int nummer)
+        {
+            Vorname = vorname;
+            Name = name;
+            Verein = verein;
+            Geburtstag = geburtstag;
+            Nummer = nummer;
+            Alter = GetAlter();
+        }
+
+        public Spieler() { }
+    }
+
+
 }
+
