@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleFussball", "FIA_Aufgaben\ConsoleFussball.csproj", "{D44297D2-207C-43DE-B32D-9E4BCC45FA5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAuto", "ConsoleAuto\ConsoleAuto.csproj", "{2DA6E77F-C9F3-4B6F-871C-C73A139C01C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAuto", "ConsoleAuto\ConsoleAuto.csproj", "{2DA6E77F-C9F3-4B6F-871C-C73A139C01C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceManager", "DeviceManager\DeviceManager.csproj", "{0CF22415-7BB5-46AD-BAEE-19D4C6EEDF45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2DA6E77F-C9F3-4B6F-871C-C73A139C01C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DA6E77F-C9F3-4B6F-871C-C73A139C01C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DA6E77F-C9F3-4B6F-871C-C73A139C01C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CF22415-7BB5-46AD-BAEE-19D4C6EEDF45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CF22415-7BB5-46AD-BAEE-19D4C6EEDF45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CF22415-7BB5-46AD-BAEE-19D4C6EEDF45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CF22415-7BB5-46AD-BAEE-19D4C6EEDF45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

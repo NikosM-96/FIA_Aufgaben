@@ -86,7 +86,7 @@ namespace FIA_Aufgaben
             {
                 Console.WriteLine();
                 Console.WriteLine($"Index: {spielerListe.IndexOf(spieler)}");
-                Console.WriteLine(spieler.ToString());
+                Console.WriteLine(spieler);
             }
         }
 
