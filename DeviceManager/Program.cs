@@ -1,4 +1,6 @@
-﻿namespace DeviceManager
+﻿using System.Net.NetworkInformation;
+
+namespace DeviceManager
 {
     internal class Program
     {
@@ -29,8 +31,8 @@
             networkDevice.Hersteller = "dsdsd";
             networkDevice.Bezeichnung = "5E2V";
             networkDevice.Standort = standort3;
-            networkDevice.Mac = "sd3d3dd33d";
-            networkDevice.Ip = "192.168.1.1";
+            networkDevice.Mac = "sd:3d3:dd3:3d";
+            networkDevice.Ip = "192.168.91.1";
 
             devices.Add(device);
             devices.Add(device2);
@@ -38,21 +40,20 @@
 
             foreach (Device d in devices)
             {
-                Console.WriteLine(d.GetInfo());
+                Console.WriteLine(d.ToString());
                 Console.WriteLine();
             }
 
-            //Console.WriteLine(device.GetInfo());
-            //Console.WriteLine();
-            //Console.WriteLine(device2.GetInfo());
-            //Console.WriteLine();
-            //Console.WriteLine(networkDevice.GetInfo());
 
             Console.ReadLine();
 
         }
     }
 
+    public interface IErreichbar
+    {
+        string GetStatus();
+    }
 
     public class Device
     {
@@ -62,7 +63,7 @@
         public Standort Standort { get; set; }
 
 
-        public string GetInfo()
+        public override string ToString()
         {
             string str = "";
             str += $"Inventarnummer: {Inventarnummer}";
@@ -86,12 +87,12 @@
         public Device() { }
     }
 
-    public class NetworkDevice : Device
+    public class NetworkDevice : Device, IErreichbar
     {
         public string Mac { get; set; }
         public string Ip { get; set; }
 
-        public string GetInfo()
+        public override string ToString()
         {
             string str = "";
             str += $"Inventarnummer: {Inventarnummer}";
@@ -101,11 +102,17 @@
             str += $"\nRaum: {Standort.Raum}";
             str += $"\nMac: {Mac}";
             str += $"\nIP: {Ip}";
+            str += $"\nStatus: {GetStatus()}";
 
 
             return str;
         }
 
+        public string GetStatus()
+        {
+            PingReply reply = new Ping().Send(Ip, 200);
+            return reply.Status.ToString();
+        }
 
         public NetworkDevice(string inventarnummer, string hersteller, string bezeichnung, Standort standort, string mac, string ip)
                             : base(inventarnummer, hersteller, bezeichnung, standort)
@@ -122,7 +129,7 @@
         public string Building { get; set; }
         public string Raum { get; set; }
 
-        public string GetInfo()
+        public override string ToString()
         {
             string str = "";
             str += $"Gebäude: {Building}";
