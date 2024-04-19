@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceManager", "DeviceMana
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleFussball", "ConsoleFussball\ConsoleFussball.csproj", "{808CC248-B316-4B8F-8041-BAF864304C33}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleMwstSumme", "ConsoleMwstSumme\ConsoleMwstSumme.csproj", "{13BD916C-32CA-4EE7-A040-FF42D1365BBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{808CC248-B316-4B8F-8041-BAF864304C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{808CC248-B316-4B8F-8041-BAF864304C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{808CC248-B316-4B8F-8041-BAF864304C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13BD916C-32CA-4EE7-A040-FF42D1365BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13BD916C-32CA-4EE7-A040-FF42D1365BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13BD916C-32CA-4EE7-A040-FF42D1365BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13BD916C-32CA-4EE7-A040-FF42D1365BBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

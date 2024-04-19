@@ -32,7 +32,7 @@ namespace DeviceManager
             networkDevice.Bezeichnung = "5E2V";
             networkDevice.Standort = standort3;
             networkDevice.Mac = "sd:3d3:dd3:3d";
-            networkDevice.Ip = "192.168.91.1";
+            networkDevice.Ip = "192.168.91.55";
 
             devices.Add(device);
             devices.Add(device2);
